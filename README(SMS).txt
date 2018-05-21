@@ -1,3 +1,22 @@
+05월 22일 : 00시14분
+
+1) MysqlConnector폴더추가
+--내부에 있는 mysql-connector-java-5.1.46-bin.jar파일을
+  자신의 자바 jdk가 깔린위치 (프로그램파일\java)
+  에서 java\jdk(버전)\jre\lib\ext 와 java\jre\lib\ext 에다 첨부
+
+2) 이클립스 => Data Source Explorer -> Database Connections [우클릭]
+   -> New -> MySQL -> (자동으로 연결안되면) JAR List에서 mysql-connector-java-5.1.46-bin.jar 추가
+   -> Database, URL, User name, Password 입력창이 나온다면
+      Database: 이름 상관없음 // url: jdbc:mysql://localhost:3306/ossw
+      User name: root // Password: db패스워드(서로 맞춰야함)
+   -> 이후 확인하면 DB연결 설정완료 질의문 사용가능
+
+3) workspace\Pos\src 에 DataInfo.java추가 
+(여기서 DB연동 및 필요한 상수값 정의 예정)
+
+------------------------------
+
 05월 21일 : 21시13분
 
 1) 기존 C#으로 작성한 GUI, 자바로 변경

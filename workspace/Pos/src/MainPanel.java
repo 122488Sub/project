@@ -9,6 +9,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,7 +21,7 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 
 public class MainPanel extends JPanel {
-	DataInfo d;
+	DataInfo data;
 	private JPanel seatAll_Panel;
 	private JLabel seatAll_Label;
 
@@ -31,7 +32,6 @@ public class MainPanel extends JPanel {
 			seat6_Name_Label, seat7_Name_Label, seat8_Name_Label;
 	private JLabel seat1_Price_Label, seat2_Price_Label, seat3_Price_Label, seat4_Price_Label, seat5_Price_Label,
 			seat6_Price_Label, seat7_Price_Label, seat8_Price_Label;
-	private JButton test;
 
 	//
 	private JPanel seatSelect_Panel;
@@ -39,11 +39,12 @@ public class MainPanel extends JPanel {
 	private JButton select_Confirm_Button, select_Pay_Button, select_Cancel_Button;
 	private JLabel seatNum_Label;
 
-	public MainPanel() {
+	public MainPanel() throws SQLException {
 
 		setPreferredSize(new Dimension(800, 600));
 		setBackground(Color.WHITE);
 		setLayout(null);
+		data = new DataInfo();
 		// -----------------------
 		// 기본화면 설정
 		seatAll_Panel = new JPanel();
@@ -60,12 +61,12 @@ public class MainPanel extends JPanel {
 		seat1_Panel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				seatAll_Panel.setVisible(false);
-				seatSelect_Panel.setVisible(true);
+				seatChange(1);
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				seatChange(1);
 			}
 		});
 		seat1_Panel.setBounds(30, 55, 160, 215);
@@ -91,14 +92,12 @@ public class MainPanel extends JPanel {
 		seat2_Panel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				seatAll_Panel.setVisible(false);
-				seatSelect_Panel.setVisible(true);
+				seatChange(2);
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				seatAll_Panel.setVisible(false);
-				seatSelect_Panel.setVisible(true);
+				seatChange(2);
 			}
 		});
 		seat2_Panel.setBounds(226, 55, 160, 215);
@@ -124,14 +123,12 @@ public class MainPanel extends JPanel {
 		seat3_Panel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				seatAll_Panel.setVisible(false);
-				seatSelect_Panel.setVisible(true);
+				seatChange(3);
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				seatAll_Panel.setVisible(false);
-				seatSelect_Panel.setVisible(true);
+				seatChange(3);
 			}
 		});
 		seat3_Panel.setBounds(422, 55, 160, 215);
@@ -157,14 +154,12 @@ public class MainPanel extends JPanel {
 		seat4_Panel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				seatAll_Panel.setVisible(false);
-				seatSelect_Panel.setVisible(true);
+				seatChange(4);
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				seatAll_Panel.setVisible(false);
-				seatSelect_Panel.setVisible(true);
+				seatChange(4);
 			}
 		});
 		seat4_Panel.setBounds(610, 55, 160, 215);
@@ -190,14 +185,12 @@ public class MainPanel extends JPanel {
 		seat5_Panel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				seatAll_Panel.setVisible(false);
-				seatSelect_Panel.setVisible(true);
+				seatChange(5);
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				seatAll_Panel.setVisible(false);
-				seatSelect_Panel.setVisible(true);
+				seatChange(5);
 			}
 		});
 		seat5_Panel.setBounds(30, 322, 160, 215);
@@ -223,14 +216,12 @@ public class MainPanel extends JPanel {
 		seat6_Panel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				seatAll_Panel.setVisible(false);
-				seatSelect_Panel.setVisible(true);
+				seatChange(6);
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				seatAll_Panel.setVisible(false);
-				seatSelect_Panel.setVisible(true);
+				seatChange(6);
 			}
 		});
 		seat6_Panel.setBounds(226, 322, 160, 215);
@@ -256,14 +247,12 @@ public class MainPanel extends JPanel {
 		seat7_Panel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				seatAll_Panel.setVisible(false);
-				seatSelect_Panel.setVisible(true);
+				seatChange(7);
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				seatAll_Panel.setVisible(false);
-				seatSelect_Panel.setVisible(true);
+				seatChange(7);
 			}
 		});
 		seat7_Panel.setBounds(422, 322, 160, 215);
@@ -289,14 +278,12 @@ public class MainPanel extends JPanel {
 		seat8_Panel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				seatAll_Panel.setVisible(false);
-				seatSelect_Panel.setVisible(true);
+				seatChange(8);
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				seatAll_Panel.setVisible(false);
-				seatSelect_Panel.setVisible(true);
+				seatChange(8);
 			}
 		});
 		seat8_Panel.setBounds(610, 322, 160, 215);
@@ -338,9 +325,11 @@ public class MainPanel extends JPanel {
 		////
 		//// 선택한 좌석번호 표시 라벨
 		////
-		seatNum_Label = new JLabel("\uC88C\uC11D\uBC88\uD638(\uC608\uC815)");
+		seatNum_Label = new JLabel();
+		seatNum_Label.setText("\uC88C\uC11D7");
 		seatNum_Label.setFont(new Font("나눔고딕", Font.BOLD, 24));
 		seatNum_Label.setBounds(12, 10, 156, 29);
+		
 		seatSelect_Panel.add(seatNum_Label);
 		////
 		//// 주문내역 패널
@@ -415,18 +404,25 @@ public class MainPanel extends JPanel {
 		select_Pay_Button.setBounds(671, 547, 100, 40);
 		seatSelect_Panel.add(select_Pay_Button);
 
-		//////
-		//////
-		//////
-		//////
-		//////
-		//////
-
+	
 		// seatAll_Panel.setVisible(true);
 		// seatSelect_Panel.setVisible(false);
 		// *********************
 		this.add(seatAll_Panel);
 		this.add(seatSelect_Panel);
 
+	}
+	
+	public void seatChange(int _seatNum) {
+		
+		data.seatNum= _seatNum;
+	
+		//변경시 각 좌석별 내용 변동시키기
+		seatNum_Label.setText("No."+data.seatNum + " Table");
+		//선택 좌석의 현재 주문상태 추가하기
+		
+		seatAll_Panel.setVisible(false);
+		seatSelect_Panel.setVisible(true);
+		
 	}
 }
