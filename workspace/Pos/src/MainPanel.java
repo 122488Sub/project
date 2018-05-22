@@ -1,428 +1,208 @@
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.*;
 import java.sql.SQLException;
+import javax.swing.*;
+import java.awt.event.*;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import java.awt.event.MouseAdapter;
-import javax.swing.JTextPane;
-import javax.swing.SwingConstants;
-import java.awt.Font;
+//**********************************************************************
+//***MainPanel 생성자 - 모든 클래스 관리***
+//**********************************************************************
 
 public class MainPanel extends JPanel {
+	
+	//**********************************************************************
+	//***변수***
+	//**********************************************************************
+	//상수 & DB값
 	DataInfo data;
-	private JPanel seatAll_Panel;
-	private JLabel seatAll_Label;
-
-	// w:60 h:215
-	private JPanel seat1_Panel, seat2_Panel, seat3_Panel, seat4_Panel, seat5_Panel, seat6_Panel, seat7_Panel,
-			seat8_Panel;
-	private JLabel seat1_Name_Label, seat2_Name_Label, seat3_Name_Label, seat4_Name_Label, seat5_Name_Label,
-			seat6_Name_Label, seat7_Name_Label, seat8_Name_Label;
-	private JLabel seat1_Price_Label, seat2_Price_Label, seat3_Price_Label, seat4_Price_Label, seat5_Price_Label,
-			seat6_Price_Label, seat7_Price_Label, seat8_Price_Label;
-
-	//
-	private JPanel seatSelect_Panel;
-	private JPanel Order_Panel, MenuPanel;
-	private JButton select_Confirm_Button, select_Pay_Button, select_Cancel_Button;
-	private JLabel seatNum_Label;
-
+	//전체 좌석화면
+	private SeatAllPanel main_Panel;
+	//선택 좌석화면
+	private SeatPanel seat_Panel;
+	
+	//**********************************************************************
+	//***MainPanel 생성자 - 모든 클래스 생성 및 이벤트 관리***
+	//**********************************************************************
 	public MainPanel() throws SQLException {
 
+		//기본크기 800x600
 		setPreferredSize(new Dimension(800, 600));
 		setBackground(Color.WHITE);
 		setLayout(null);
+		
 		data = new DataInfo();
-		// -----------------------
-		// 기본화면 설정
-		seatAll_Panel = new JPanel();
-		seatAll_Panel.setBounds(0, 0, 800, 600);
-		seatAll_Panel.setLayout(null);
-
-		seatAll_Label = new JLabel(new ImageIcon("img\\img_Seat.png"));
-		seatAll_Label.setBounds(0, 0, 800, 600);
-		seatAll_Label.setLayout(null);
-		seatAll_Panel.add(seatAll_Label);
-
-		//// 좌석1
-		seat1_Panel = new JPanel();
-		seat1_Panel.addMouseListener(new MouseAdapter() {
+		//**********************************************************************
+		//
+		// 전체 좌석화면 설정
+		//
+		main_Panel= new SeatAllPanel();
+		
+		////
+		////전체 좌석화면: 좌석 선택시 화면전환 이벤트 실시
+		////
+		main_Panel.seat1_Panel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				seatChange(1);
+				seat_AlltoSel_Change(1);
 			}
-
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				seatChange(1);
+				seat_AlltoSel_Change(1);
 			}
 		});
-		seat1_Panel.setBounds(30, 55, 160, 215);
-		seat1_Panel.setLayout(null);
-		seat1_Panel.setOpaque(false);
-
-		seat1_Name_Label = new JLabel("No.1");
-		seat1_Name_Label.setFont(new Font("나눔고딕", Font.BOLD, 18));
-		seat1_Name_Label.setHorizontalAlignment(SwingConstants.CENTER);
-		seat1_Name_Label.setBounds(0, 0, 160, 50);
-		seat1_Name_Label.setLayout(null);
-		seat1_Panel.add(seat1_Name_Label);
-
-		seat1_Price_Label = new JLabel("0");
-		seat1_Price_Label.setFont(new Font("나눔고딕", Font.BOLD, 24));
-		seat1_Price_Label.setHorizontalAlignment(SwingConstants.RIGHT);
-		seat1_Price_Label.setBounds(64, 174, 73, 31);
-		seat1_Panel.add(seat1_Price_Label);
-		////
-		//// 좌석2
-		////
-		seat2_Panel = new JPanel();
-		seat2_Panel.addMouseListener(new MouseAdapter() {
+		main_Panel.seat2_Panel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				seatChange(2);
+				seat_AlltoSel_Change(2);
 			}
-
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				seatChange(2);
+				seat_AlltoSel_Change(2);
 			}
 		});
-		seat2_Panel.setBounds(226, 55, 160, 215);
-		seat2_Panel.setLayout(null);
-		seat2_Panel.setOpaque(false);
-
-		seat2_Name_Label = new JLabel("No.2");
-		seat2_Name_Label.setFont(new Font("나눔고딕", Font.BOLD, 18));
-		seat2_Name_Label.setHorizontalAlignment(SwingConstants.CENTER);
-		seat2_Name_Label.setBounds(0, 0, 160, 50);
-		seat2_Name_Label.setLayout(null);
-		seat2_Panel.add(seat2_Name_Label);
-
-		seat2_Price_Label = new JLabel("0");
-		seat2_Price_Label.setFont(new Font("나눔고딕", Font.BOLD, 24));
-		seat2_Price_Label.setHorizontalAlignment(SwingConstants.RIGHT);
-		seat2_Price_Label.setBounds(64, 174, 73, 31);
-		seat2_Panel.add(seat2_Price_Label);
-		////
-		//// 좌석3
-		////
-		seat3_Panel = new JPanel();
-		seat3_Panel.addMouseListener(new MouseAdapter() {
+		main_Panel.seat3_Panel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				seatChange(3);
+				seat_AlltoSel_Change(3);
 			}
-
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				seatChange(3);
+				seat_AlltoSel_Change(3);
 			}
 		});
-		seat3_Panel.setBounds(422, 55, 160, 215);
-		seat3_Panel.setLayout(null);
-		seat3_Panel.setOpaque(false);
-
-		seat3_Name_Label = new JLabel("No.3");
-		seat3_Name_Label.setFont(new Font("나눔고딕", Font.BOLD, 18));
-		seat3_Name_Label.setHorizontalAlignment(SwingConstants.CENTER);
-		seat3_Name_Label.setBounds(0, 0, 160, 50);
-		seat3_Name_Label.setLayout(null);
-		seat3_Panel.add(seat3_Name_Label);
-
-		seat3_Price_Label = new JLabel("0");
-		seat3_Price_Label.setFont(new Font("나눔고딕", Font.BOLD, 24));
-		seat3_Price_Label.setHorizontalAlignment(SwingConstants.RIGHT);
-		seat3_Price_Label.setBounds(64, 174, 73, 31);
-		seat3_Panel.add(seat3_Price_Label);
-		////
-		//// 좌석4
-		////
-		seat4_Panel = new JPanel();
-		seat4_Panel.addMouseListener(new MouseAdapter() {
+		main_Panel.seat4_Panel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				seatChange(4);
+				seat_AlltoSel_Change(4);
 			}
-
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				seatChange(4);
+				seat_AlltoSel_Change(4);
 			}
 		});
-		seat4_Panel.setBounds(610, 55, 160, 215);
-		seat4_Panel.setLayout(null);
-		seat4_Panel.setOpaque(false);
-
-		seat4_Name_Label = new JLabel("No.4");
-		seat4_Name_Label.setFont(new Font("나눔고딕", Font.BOLD, 18));
-		seat4_Name_Label.setHorizontalAlignment(SwingConstants.CENTER);
-		seat4_Name_Label.setBounds(0, 0, 160, 50);
-		seat4_Name_Label.setLayout(null);
-		seat4_Panel.add(seat4_Name_Label);
-
-		seat4_Price_Label = new JLabel("0");
-		seat4_Price_Label.setFont(new Font("나눔고딕", Font.BOLD, 24));
-		seat4_Price_Label.setHorizontalAlignment(SwingConstants.RIGHT);
-		seat4_Price_Label.setBounds(64, 174, 73, 31);
-		seat4_Panel.add(seat4_Price_Label);
-		////
-		//// 좌석5
-		////
-		seat5_Panel = new JPanel();
-		seat5_Panel.addMouseListener(new MouseAdapter() {
+		main_Panel.seat5_Panel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				seatChange(5);
+				seat_AlltoSel_Change(5);
 			}
-
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				seatChange(5);
+				seat_AlltoSel_Change(5);
 			}
 		});
-		seat5_Panel.setBounds(30, 322, 160, 215);
-		seat5_Panel.setLayout(null);
-		seat5_Panel.setOpaque(false);
-
-		seat5_Name_Label = new JLabel("No.5");
-		seat5_Name_Label.setFont(new Font("나눔고딕", Font.BOLD, 18));
-		seat5_Name_Label.setHorizontalAlignment(SwingConstants.CENTER);
-		seat5_Name_Label.setBounds(0, 0, 160, 50);
-		seat5_Name_Label.setLayout(null);
-		seat5_Panel.add(seat5_Name_Label);
-
-		seat5_Price_Label = new JLabel("0");
-		seat5_Price_Label.setFont(new Font("나눔고딕", Font.BOLD, 24));
-		seat5_Price_Label.setHorizontalAlignment(SwingConstants.RIGHT);
-		seat5_Price_Label.setBounds(64, 174, 73, 31);
-		seat5_Panel.add(seat5_Price_Label);
-		////
-		//// 좌석6
-		////
-		seat6_Panel = new JPanel();
-		seat6_Panel.addMouseListener(new MouseAdapter() {
+		main_Panel.seat6_Panel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				seatChange(6);
+				seat_AlltoSel_Change(6);
 			}
-
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				seatChange(6);
+				seat_AlltoSel_Change(6);
 			}
 		});
-		seat6_Panel.setBounds(226, 322, 160, 215);
-		seat6_Panel.setLayout(null);
-		seat6_Panel.setOpaque(false);
-
-		seat6_Name_Label = new JLabel("No.6");
-		seat6_Name_Label.setFont(new Font("나눔고딕", Font.BOLD, 18));
-		seat6_Name_Label.setHorizontalAlignment(SwingConstants.CENTER);
-		seat6_Name_Label.setBounds(0, 0, 160, 50);
-		seat6_Name_Label.setLayout(null);
-		seat6_Panel.add(seat6_Name_Label);
-
-		seat6_Price_Label = new JLabel("0");
-		seat6_Price_Label.setFont(new Font("나눔고딕", Font.BOLD, 24));
-		seat6_Price_Label.setHorizontalAlignment(SwingConstants.RIGHT);
-		seat6_Price_Label.setBounds(64, 174, 73, 31);
-		seat6_Panel.add(seat6_Price_Label);
-		////
-		//// 좌석7
-		////
-		seat7_Panel = new JPanel();
-		seat7_Panel.addMouseListener(new MouseAdapter() {
+		main_Panel.seat7_Panel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				seatChange(7);
+				seat_AlltoSel_Change(7);
 			}
-
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				seatChange(7);
+				seat_AlltoSel_Change(7);
 			}
 		});
-		seat7_Panel.setBounds(422, 322, 160, 215);
-		seat7_Panel.setLayout(null);
-		seat7_Panel.setOpaque(false);
-
-		seat7_Name_Label = new JLabel("No.7");
-		seat7_Name_Label.setFont(new Font("나눔고딕", Font.BOLD, 18));
-		seat7_Name_Label.setHorizontalAlignment(SwingConstants.CENTER);
-		seat7_Name_Label.setBounds(0, 0, 160, 50);
-		seat7_Name_Label.setLayout(null);
-		seat7_Panel.add(seat7_Name_Label);
-
-		seat7_Price_Label = new JLabel("0");
-		seat7_Price_Label.setFont(new Font("나눔고딕", Font.BOLD, 24));
-		seat7_Price_Label.setHorizontalAlignment(SwingConstants.RIGHT);
-		seat7_Price_Label.setBounds(64, 174, 73, 31);
-		seat7_Panel.add(seat7_Price_Label);
-		////
-		//// 좌석8
-		////
-		seat8_Panel = new JPanel();
-		seat8_Panel.addMouseListener(new MouseAdapter() {
+		main_Panel.seat8_Panel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				seatChange(8);
+				seat_AlltoSel_Change(8);
 			}
-
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				seatChange(8);
+				seat_AlltoSel_Change(8);
 			}
 		});
-		seat8_Panel.setBounds(610, 322, 160, 215);
-		seat8_Panel.setLayout(null);
-		seat8_Panel.setOpaque(false);
-
-		seat8_Name_Label = new JLabel("No.8");
-		seat8_Name_Label.setFont(new Font("나눔고딕", Font.BOLD, 18));
-		seat8_Name_Label.setHorizontalAlignment(SwingConstants.CENTER);
-		seat8_Name_Label.setBounds(0, 0, 160, 50);
-		seat8_Name_Label.setLayout(null);
-		seat8_Panel.add(seat8_Name_Label);
-
-		seat8_Price_Label = new JLabel("0");
-		seat8_Price_Label.setFont(new Font("나눔고딕", Font.BOLD, 24));
-		seat8_Price_Label.setHorizontalAlignment(SwingConstants.RIGHT);
-		seat8_Price_Label.setBounds(64, 174, 73, 31);
-		seat8_Panel.add(seat8_Price_Label);
-		////
-		//// 전체좌석라벨에다 각좌석 패널 추가
-		////
-		seatAll_Label.add(seat1_Panel);
-		seatAll_Label.add(seat2_Panel);
-		seatAll_Label.add(seat3_Panel);
-		seatAll_Label.add(seat4_Panel);
-		seatAll_Label.add(seat5_Panel);
-		seatAll_Label.add(seat6_Panel);
-		seatAll_Label.add(seat7_Panel);
-		seatAll_Label.add(seat8_Panel);
-
-		// ********************
+		//**********************************************************************
+		//
 		// 좌석 선택시 화면
-
-		seatSelect_Panel = new JPanel();
-		seatSelect_Panel.setBounds(0, 0, 800, 600);
-		seatSelect_Panel.setLayout(null);
-		seatSelect_Panel.setVisible(false); // 초기화시 안보이게 설정
-
+		seat_Panel = new SeatPanel();
+		//
 		////
-		//// 선택한 좌석번호 표시 라벨
+		////좌석선택화면: 취소버튼
 		////
-		seatNum_Label = new JLabel();
-		seatNum_Label.setText("\uC88C\uC11D7");
-		seatNum_Label.setFont(new Font("나눔고딕", Font.BOLD, 24));
-		seatNum_Label.setBounds(12, 10, 156, 29);
+		seat_Panel.select_Cancel_Button.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				seat_SeltoAll_Cancel_Change();
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				seat_SeltoAll_Cancel_Change();
+			}
+		});
+		////
+		////좌석선택화면: 확인버튼
+		////
+		seat_Panel.select_Confirm_Button.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				seat_SeltoAll_Confirm_Change();
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				seat_SeltoAll_Confirm_Change();
+			}
+		});
+		////
+		////좌석선택화면: 결제버튼
+		////
+		seat_Panel.select_Pay_Button.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				seat_SeltoAll_Pay_Change();
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				seat_SeltoAll_Pay_Change();
+			}
+		});
 		
-		seatSelect_Panel.add(seatNum_Label);
-		////
-		//// 주문내역 패널
-		////
-		Order_Panel = new JPanel();
-		Order_Panel.setBackground(new Color(240, 255, 240));
-		Order_Panel.setBounds(12, 49, 375, 488);
-		seatSelect_Panel.add(Order_Panel);
-		////
-		//// 메뉴선택 패널
-		////
-		MenuPanel = new JPanel();
-		MenuPanel.setBackground(new Color(245, 255, 250));
-		MenuPanel.setBounds(418, 49, 353, 488);
-		seatSelect_Panel.add(MenuPanel);
-		////
-		//// 선택화면 취소버튼
-		////
-		select_Cancel_Button = new JButton("\uCDE8\uC18C");
-		select_Cancel_Button.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				seatAll_Panel.setVisible(true);
-				seatSelect_Panel.setVisible(false);
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				seatAll_Panel.setVisible(true);
-				seatSelect_Panel.setVisible(false);
-			}
-		});
-		select_Cancel_Button.setFont(new Font("나눔고딕", Font.BOLD, 24));
-		select_Cancel_Button.setBounds(418, 547, 100, 40);
-		seatSelect_Panel.add(select_Cancel_Button);
-		////
-		//// 선택화면 확인버튼
-		////
-		select_Confirm_Button = new JButton("\uD655\uC778");
-		select_Confirm_Button.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				seatAll_Panel.setVisible(true);
-				seatSelect_Panel.setVisible(false);
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				seatAll_Panel.setVisible(true);
-				seatSelect_Panel.setVisible(false);
-			}
-		});
-		select_Confirm_Button.setFont(new Font("나눔고딕", Font.BOLD, 24));
-		select_Confirm_Button.setBounds(544, 547, 100, 40);
-		seatSelect_Panel.add(select_Confirm_Button);
-		////
-		//// 선택화면 결제버튼
-		////
-		select_Pay_Button = new JButton("\uACB0\uC81C");
-		select_Pay_Button.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				
-			}
-		});
-		select_Pay_Button.setFont(new Font("나눔고딕", Font.BOLD, 24));
-		select_Pay_Button.setBounds(671, 547, 100, 40);
-		seatSelect_Panel.add(select_Pay_Button);
-
-	
-		// seatAll_Panel.setVisible(true);
-		// seatSelect_Panel.setVisible(false);
-		// *********************
-		this.add(seatAll_Panel);
-		this.add(seatSelect_Panel);
-
+		
+		//**********************************************************************
+		//처음에는 전체좌석화면만 보이도록 설정
+		this.add(main_Panel.seatAll_Panel);
+		this.add(seat_Panel.seatSelect_Panel);
 	}
 	
-	public void seatChange(int _seatNum) {
+	//**********************************************************************
+	//***화면 전환 관리 함수***
+	//**********************************************************************
+
+	public void seat_SeltoAll_Cancel_Change() {
+		//취소(주문완료 안하고 취소) DB저장안하고 그냥나오기
+		main_Panel.seatAll_Panel.setVisible(true);
+		seat_Panel.seatSelect_Panel.setVisible(false);
+	}
+	
+	public void seat_SeltoAll_Confirm_Change() {
+		//확인(메뉴주문)시 DB저장 필요
+		main_Panel.seatAll_Panel.setVisible(true);
+		seat_Panel.seatSelect_Panel.setVisible(false);
+	}
+	
+	public void seat_SeltoAll_Pay_Change() {
+		//결제와 관련된 창 필요
+		//DB추가이후 작업
+	}
+	
+	public void seat_AlltoSel_Change(int _seatNum) {
 		
 		data.seatNum= _seatNum;
 	
 		//변경시 각 좌석별 내용 변동시키기
-		seatNum_Label.setText("No."+data.seatNum + " Table");
-		//선택 좌석의 현재 주문상태 추가하기
+		seat_Panel.seatNum_Label.setText("No."+data.seatNum + " Table");
+		//***선택 좌석의 현재 주문상태 추가하기***
 		
-		seatAll_Panel.setVisible(false);
-		seatSelect_Panel.setVisible(true);
+		//패널전환
+		main_Panel.seatAll_Panel.setVisible(false);
+		seat_Panel.seatSelect_Panel.setVisible(true);
 		
 	}
 }
