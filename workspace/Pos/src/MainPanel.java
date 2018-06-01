@@ -1,5 +1,8 @@
 import java.awt.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import javax.swing.*;
 import java.awt.event.*;
 
@@ -14,6 +17,7 @@ public class MainPanel extends JPanel {
 	//**********************************************************************
 	//상수 & DB값
 	DataInfo data;
+	DbDAO DB;
 	//전체 좌석화면
 	private SeatAllPanel main_Panel;
 	//선택 좌석화면
@@ -28,7 +32,7 @@ public class MainPanel extends JPanel {
 		setPreferredSize(new Dimension(800, 600));
 		setBackground(Color.WHITE);
 		setLayout(null);
-		
+		DB = new DbDAO();
 		data = new DataInfo();
 		//**********************************************************************
 		//
@@ -193,12 +197,13 @@ public class MainPanel extends JPanel {
 	}
 	
 	public void seat_AlltoSel_Change(int _seatNum) {
-		
-		data.seatNum= _seatNum;
-	
+		DB.setSeatNum(_seatNum);
+			
 		//변경시 각 좌석별 내용 변동시키기
-		seat_Panel.seatNum_Label.setText("No."+data.seatNum + " Table");
+		seat_Panel.seatNum_Label.setText("No."+DB.getSeatNum() + " Table");
 		//***선택 좌석의 현재 주문상태 추가하기***
+		
+						
 		
 		//패널전환
 		main_Panel.seatAll_Panel.setVisible(false);
