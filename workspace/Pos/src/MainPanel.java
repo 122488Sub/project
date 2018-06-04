@@ -160,19 +160,12 @@ public class MainPanel extends JPanel {
 		seat_Panel.select_Pay_Button.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				try{
-					data.insertSales(DB.getSeatNum());
-				}catch(SQLException S)
-				{
-					
-				}
 				seat_SeltoAll_Pay_Change();
 			}
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				seat_SeltoAll_Pay_Change();
 			}
-			//
 		});
 		
 		
