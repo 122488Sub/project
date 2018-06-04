@@ -64,41 +64,41 @@ public class DataInfo {
 
 
 	}
-	public void insertSales(int tableNUM)throws SQLException{
+	public void insertSales(int seatNum)throws SQLException{
 		/*
 		 * 결제 후 sales테이블 삽입
 		 * seattable테이블 삭제
-		 * tableNUM : 좌석번호
+		 * seatNum : 좌석번호
 		 */
 		int i;
 		DateFormat sdFormat = new SimpleDateFormat("yyyyMMdd");
 		Date nowDate = new Date();
 		String tempDate = sdFormat.format(nowDate);
 
-		i = st.executeUpdate("insert sales values((select max(a.serial)+1 from sales as a), '" + tableNUM + "', "
-				+ "(select sum(menutotal) from seattable where tableNUM = '" + tableNUM + "'), '" + tempDate + "');");
+		i = st.executeUpdate("insert sales values((select max(a.serial)+1 from sales as a), '" + seatNum + "', "
+				+ "(select sum(menutotal) from seattable where seatNum = '" + seatNum + "'), '" + tempDate + "');");
 		
 		if(i>0)
 			System.out.println("insert : "+ i);
 		
-		i = st.executeUpdate("delete from seattable where tableNUM = '"+ tableNUM +"';");
+		i = st.executeUpdate("delete from seattable where seatNum = '"+ seatNum +"';");
 		
 		if(i>0)
 			System.out.println("dalete : "+ i);
 		
 	}
-	public void deleteTableMenu(String menu, String tableNUM)throws SQLException{
+	public void deleteTableMenu(String menu, String seatNum)throws SQLException{
 		/*
 		 * 테이블에서 메뉴 삭제
 		 * menu : 메뉴번호(메뉴이름 X)
-		 * tableNUM : 좌석번호
+		 * seatNum : 좌석번호
 		 */
 		int i;
-		i = st.executeUpdate("delete from seattable where tableNUM = '" + tableNUM + "' and menuNUM = '" + menu +"';");
+		i = st.executeUpdate("delete from seattable where seatNum = '" + seatNum + "' and menuNUM = '" + menu +"';");
 		if(i>0)
 			System.out.println(i);
 	}
-	public void updateTable(String menu, String tableNUM, int num, int menutotal)throws SQLException {
+	public void updateTable(String menu, String seatNum, int num, int menutotal)throws SQLException {
 		/*
 		 * 테이블에 주문메뉴수정
 		 * menu : 메뉴번호(이름X)
@@ -107,10 +107,11 @@ public class DataInfo {
 		 * menutotal : 가격(메뉴가격 * 갯수)
 		 */
 		int i;
-		i = st.executeUpdate("update seattable set number = " + num + ", menutotal = " + menutotal + " where tableNUM = '" + tableNUM + "' and menuNUM = '" + menu + "';");
+		i = st.executeUpdate("update seattable set number = " + num + ", menutotal = " + menutotal + " where seatNum = '" + seatNum + "' and menuNUM = '" + menu + "';");
 		if(i>0)
 			System.out.println(i);
 	}
+	
 	public ArrayList GetMenu(String part)throws SQLException {
 		/*
 		 * 메뉴가져오기
@@ -133,6 +134,47 @@ public class DataInfo {
 			data.setName(rs.getString(2));
 			data.setPrice_menu(rs.getInt(3));
 			data.setPart(rs.getString(4));
+			li.add(data);
+		}
+
+
+		return li;
+		/*
+		 * DbDAO data = null;
+		for(int i = 0; i < li.size(); i++) {
+			data = (DbDAO)li.get(i);
+			data.getName();
+        }
+        
+         *반환값 이런식으로 사용
+		 */
+
+	}
+	public ArrayList<DbDAO> GetSeat(int seatNum)throws SQLException {
+		/*
+		 * 테이블 주문 메뉴 가져오기
+		 * seatNum : 좌석번호
+		 */
+		ResultSet rs = null;
+		ArrayList<DbDAO> li = new ArrayList<DbDAO>();
+		rs = st.executeQuery("select a.seatNUM, a.menuNUM, a.price, a.number, a.menutotal, b.name "
+				+ "from seattable a, menutable b where a.menuNUM = b.menuNUM and seatNUM =" + seatNum + ";");
+		
+		if (st.execute("select a.seatNUM, a.menuNUM, a.price, a.number, a.menutotal, b.name "
+				+ "from seattable a, menutable b where a.menuNUM = b.menuNUM and seatNUM =" + seatNum + ";")) {
+			
+			rs = st.getResultSet();
+
+		}
+		while (rs.next()) {
+			DbDAO data = new DbDAO();
+			
+			data.setSeatNum(rs.getInt(1)) ;
+			data.setMenuNum(rs.getString(2));
+			data.setPrice_menu(rs.getInt(3));
+			data.setNumber(rs.getInt(4));
+			data.setTotaprice(rs.getInt(5));
+			data.setName(rs.getString(6));
 			li.add(data);
 		}
 

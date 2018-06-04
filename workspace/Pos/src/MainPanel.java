@@ -160,12 +160,7 @@ public class MainPanel extends JPanel {
 		seat_Panel.select_Pay_Button.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				try{
-					data.insertSales(DB.getSeatNum());
-				}catch(SQLException S)
-				{
-					
-				}
+				
 				seat_SeltoAll_Pay_Change();
 			}
 			@Override
@@ -201,11 +196,36 @@ public class MainPanel extends JPanel {
 	public void seat_SeltoAll_Pay_Change() {
 		//결제와 관련된 창 필요
 		//DB추가이후 작업
+		try{
+			/*
+			 * 결제버튼 클릭시 data 삽입 삭제
+			 */
+			data.insertSales(DB.getSeatNum());
+		}catch(SQLException S)
+		{
+			
+		}
 	}
 	
 	public void seat_AlltoSel_Change(int _seatNum) {
 		DB.setSeatNum(_seatNum);
+		ArrayList<DbDAO> li = new ArrayList<DbDAO>();
+		try {
+			li = data.GetSeat(DB.getSeatNum());
+			for(int i=0;i<li.size();i++) {
+				System.out.println(i);
+				DbDAO order = li.get(i);
+				System.out.println(order.getMenuNum());
+				System.out.println(order.getName());
+				System.out.println(order.getNumber());
+				System.out.println(order.getTotaprice());
+				
+				
+				
+			}
+		}catch(SQLException e) {
 			
+		}
 		//변경시 각 좌석별 내용 변동시키기
 		seat_Panel.seatNum_Label.setText("No."+DB.getSeatNum() + " Table");
 		//***선택 좌석의 현재 주문상태 추가하기***
