@@ -66,7 +66,7 @@ public class DataInfo {
 	}
 	public void insertSales(int seatNum)throws SQLException{
 		/*
-		 * 결제 후 sales테이블 삽입
+		 * 결제시 sales테이블 삽입
 		 * seattable테이블 삭제
 		 * seatNum : 좌석번호
 		 */
@@ -190,5 +190,26 @@ public class DataInfo {
          *반환값 이런식으로 사용
 		 */
 
+	}
+	public int getSeattotal(int seatNum)throws SQLException {
+		/*
+		 * 좌석 주문총액
+		 * seatNum : 좌석번호
+		 */
+		int total=0;
+		ResultSet rs = null;
+		rs = st.executeQuery("select sum(menutotal) from seattable where seatNUM = " + seatNum + ";");
+		
+		if (st.execute("select sum(menutotal) from seattable where seatNUM = " + seatNum + ";")) {
+			
+			rs = st.getResultSet();
+
+		}
+		if(rs.next())
+			total = rs.getInt(1);
+
+
+		return total;
+		
 	}
 }
