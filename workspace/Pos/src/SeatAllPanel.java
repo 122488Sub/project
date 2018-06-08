@@ -1,5 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
+import java.sql.SQLException;
+import java.util.HashMap;
 
 public class SeatAllPanel extends JPanel {
 
@@ -13,11 +15,15 @@ public class SeatAllPanel extends JPanel {
 	public JLabel seat1_Price_Label, seat2_Price_Label, seat3_Price_Label, seat4_Price_Label, seat5_Price_Label,
 			seat6_Price_Label, seat7_Price_Label, seat8_Price_Label;
 	
-	public SeatAllPanel() {
+	public SeatAllPanel()throws SQLException {
 		
 		setPreferredSize(new Dimension(800,600));
 		setBackground(Color.RED);
 		setLayout(null);
+		
+		DataInfo data = new DataInfo();
+		HashMap total = new HashMap();
+		total = data.getSeattotal();
 		
 		//----------------------------------------
 		seatAll_Panel = new JPanel();
@@ -41,12 +47,14 @@ public class SeatAllPanel extends JPanel {
 		seat1_Name_Label.setBounds(0, 0, 160, 50);
 		seat1_Name_Label.setLayout(null);
 		seat1_Panel.add(seat1_Name_Label);
-
-		seat1_Price_Label = new JLabel("0");
-		seat1_Price_Label.setFont(new Font("³ª´®°íµñ", Font.BOLD, 24));
-		seat1_Price_Label.setHorizontalAlignment(SwingConstants.RIGHT);
-		seat1_Price_Label.setBounds(64, 174, 73, 31);
-		seat1_Panel.add(seat1_Price_Label);
+				
+		if(total.get(1) != null) {
+			seat1_Price_Label = new JLabel(String.valueOf(total.get(1))+"¿ø");
+			seat1_Price_Label.setFont(new Font("³ª´®°íµñ", Font.BOLD, 18));
+			seat1_Price_Label.setHorizontalAlignment(SwingConstants.RIGHT);
+			seat1_Price_Label.setBounds(64, 174, 73, 31);
+			seat1_Panel.add(seat1_Price_Label);
+		}
 		////
 		//// ÁÂ¼®2
 		////
@@ -61,12 +69,13 @@ public class SeatAllPanel extends JPanel {
 		seat2_Name_Label.setBounds(0, 0, 160, 50);
 		seat2_Name_Label.setLayout(null);
 		seat2_Panel.add(seat2_Name_Label);
-
-		seat2_Price_Label = new JLabel("0");
-		seat2_Price_Label.setFont(new Font("³ª´®°íµñ", Font.BOLD, 24));
-		seat2_Price_Label.setHorizontalAlignment(SwingConstants.RIGHT);
-		seat2_Price_Label.setBounds(64, 174, 73, 31);
-		seat2_Panel.add(seat2_Price_Label);
+		if(total.get(2) != null) {
+			seat2_Price_Label = new JLabel(String.valueOf(total.get(2))+"¿ø");
+			seat2_Price_Label.setFont(new Font("³ª´®°íµñ", Font.BOLD, 18));
+			seat2_Price_Label.setHorizontalAlignment(SwingConstants.RIGHT);
+			seat2_Price_Label.setBounds(64, 174, 73, 31);
+			seat2_Panel.add(seat2_Price_Label);
+		}
 		////
 		//// ÁÂ¼®3
 		////
@@ -81,12 +90,13 @@ public class SeatAllPanel extends JPanel {
 		seat3_Name_Label.setBounds(0, 0, 160, 50);
 		seat3_Name_Label.setLayout(null);
 		seat3_Panel.add(seat3_Name_Label);
-
-		seat3_Price_Label = new JLabel("0");
-		seat3_Price_Label.setFont(new Font("³ª´®°íµñ", Font.BOLD, 24));
-		seat3_Price_Label.setHorizontalAlignment(SwingConstants.RIGHT);
-		seat3_Price_Label.setBounds(64, 174, 73, 31);
-		seat3_Panel.add(seat3_Price_Label);
+		if(total.get(3) != null) {
+			seat3_Price_Label = new JLabel(String.valueOf(total.get(3))+"¿ø");
+			seat3_Price_Label.setFont(new Font("³ª´®°íµñ", Font.BOLD, 18));
+			seat3_Price_Label.setHorizontalAlignment(SwingConstants.RIGHT);
+			seat3_Price_Label.setBounds(64, 174, 73, 31);
+			seat3_Panel.add(seat3_Price_Label);
+		}
 		////
 		//// ÁÂ¼®4
 		////
@@ -101,12 +111,13 @@ public class SeatAllPanel extends JPanel {
 		seat4_Name_Label.setBounds(0, 0, 160, 50);
 		seat4_Name_Label.setLayout(null);
 		seat4_Panel.add(seat4_Name_Label);
-
-		seat4_Price_Label = new JLabel("0");
-		seat4_Price_Label.setFont(new Font("³ª´®°íµñ", Font.BOLD, 24));
+		if(total.get(4) != null) {
+		seat4_Price_Label = new JLabel(String.valueOf(total.get(4))+"¿ø");
+		seat4_Price_Label.setFont(new Font("³ª´®°íµñ", Font.BOLD, 18));
 		seat4_Price_Label.setHorizontalAlignment(SwingConstants.RIGHT);
 		seat4_Price_Label.setBounds(64, 174, 73, 31);
 		seat4_Panel.add(seat4_Price_Label);
+		}
 		////
 		//// ÁÂ¼®5
 		////
@@ -121,12 +132,13 @@ public class SeatAllPanel extends JPanel {
 		seat5_Name_Label.setBounds(0, 0, 160, 50);
 		seat5_Name_Label.setLayout(null);
 		seat5_Panel.add(seat5_Name_Label);
-
-		seat5_Price_Label = new JLabel("0");
-		seat5_Price_Label.setFont(new Font("³ª´®°íµñ", Font.BOLD, 24));
-		seat5_Price_Label.setHorizontalAlignment(SwingConstants.RIGHT);
-		seat5_Price_Label.setBounds(64, 174, 73, 31);
-		seat5_Panel.add(seat5_Price_Label);
+		if(total.get(5) != null) {
+			seat5_Price_Label = new JLabel(String.valueOf(total.get(5))+"¿ø");
+			seat5_Price_Label.setFont(new Font("³ª´®°íµñ", Font.BOLD, 18));
+			seat5_Price_Label.setHorizontalAlignment(SwingConstants.RIGHT);
+			seat5_Price_Label.setBounds(64, 174, 73, 31);
+			seat5_Panel.add(seat5_Price_Label);
+		}
 		////
 		//// ÁÂ¼®6
 		////
@@ -141,12 +153,13 @@ public class SeatAllPanel extends JPanel {
 		seat6_Name_Label.setBounds(0, 0, 160, 50);
 		seat6_Name_Label.setLayout(null);
 		seat6_Panel.add(seat6_Name_Label);
-
-		seat6_Price_Label = new JLabel("0");
-		seat6_Price_Label.setFont(new Font("³ª´®°íµñ", Font.BOLD, 24));
-		seat6_Price_Label.setHorizontalAlignment(SwingConstants.RIGHT);
-		seat6_Price_Label.setBounds(64, 174, 73, 31);
-		seat6_Panel.add(seat6_Price_Label);
+		if(total.get(6) != null) {
+			seat6_Price_Label = new JLabel(String.valueOf(total.get(6))+"¿ø");
+			seat6_Price_Label.setFont(new Font("³ª´®°íµñ", Font.BOLD, 18));
+			seat6_Price_Label.setHorizontalAlignment(SwingConstants.RIGHT);
+			seat6_Price_Label.setBounds(64, 174, 73, 31);
+			seat6_Panel.add(seat6_Price_Label);
+		}
 		////
 		//// ÁÂ¼®7
 		////
@@ -161,12 +174,13 @@ public class SeatAllPanel extends JPanel {
 		seat7_Name_Label.setBounds(0, 0, 160, 50);
 		seat7_Name_Label.setLayout(null);
 		seat7_Panel.add(seat7_Name_Label);
-
-		seat7_Price_Label = new JLabel("0");
-		seat7_Price_Label.setFont(new Font("³ª´®°íµñ", Font.BOLD, 24));
-		seat7_Price_Label.setHorizontalAlignment(SwingConstants.RIGHT);
-		seat7_Price_Label.setBounds(64, 174, 73, 31);
-		seat7_Panel.add(seat7_Price_Label);
+		if(total.get(7) != null) {
+			seat7_Price_Label = new JLabel(String.valueOf(total.get(7))+"¿ø");
+			seat7_Price_Label.setFont(new Font("³ª´®°íµñ", Font.BOLD, 18));
+			seat7_Price_Label.setHorizontalAlignment(SwingConstants.RIGHT);
+			seat7_Price_Label.setBounds(64, 174, 73, 31);
+			seat7_Panel.add(seat7_Price_Label);
+		}
 		////
 		//// ÁÂ¼®8
 		////
@@ -181,12 +195,13 @@ public class SeatAllPanel extends JPanel {
 		seat8_Name_Label.setBounds(0, 0, 160, 50);
 		seat8_Name_Label.setLayout(null);
 		seat8_Panel.add(seat8_Name_Label);
-
-		seat8_Price_Label = new JLabel("0");
-		seat8_Price_Label.setFont(new Font("³ª´®°íµñ", Font.BOLD, 24));
-		seat8_Price_Label.setHorizontalAlignment(SwingConstants.RIGHT);
-		seat8_Price_Label.setBounds(64, 174, 73, 31);
-		seat8_Panel.add(seat8_Price_Label);
+		if(total.get(8) != null) {
+			seat8_Price_Label = new JLabel(String.valueOf(total.get(8))+"¿ø");
+			seat8_Price_Label.setFont(new Font("³ª´®°íµñ", Font.BOLD, 18));
+			seat8_Price_Label.setHorizontalAlignment(SwingConstants.RIGHT);
+			seat8_Price_Label.setBounds(64, 174, 73, 31);
+			seat8_Panel.add(seat8_Price_Label);
+		}
 		////
 		//// ÀüÃ¼ÁÂ¼®¶óº§¿¡´Ù °¢ÁÂ¼® ÆÐ³Î Ãß°¡
 		////

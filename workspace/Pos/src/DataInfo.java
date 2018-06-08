@@ -191,25 +191,28 @@ public class DataInfo {
 		 */
 
 	}
-	public int getSeattotal(int seatNum)throws SQLException {
+	public HashMap<Integer, Integer> getSeattotal()throws SQLException {
 		/*
 		 * ÁÂ¼® ÁÖ¹®ÃÑ¾×
 		 * seatNum : ÁÂ¼®¹øÈ£
 		 */
-		int total=0;
-		ResultSet rs = null;
-		rs = st.executeQuery("select sum(menutotal) from seattable where seatNUM = " + seatNum + ";");
+		HashMap<Integer, Integer> re = new HashMap<Integer, Integer>();
 		
-		if (st.execute("select sum(menutotal) from seattable where seatNUM = " + seatNum + ";")) {
+		ResultSet rs = null;
+		rs = st.executeQuery("select seatNUM, sum(menutotal) from seattable group by seatNUm;");
+		
+		if (st.execute("select seatNUM, sum(menutotal) from seattable group by seatNUm;")) {
 			
 			rs = st.getResultSet();
 
 		}
-		if(rs.next())
-			total = rs.getInt(1);
+		while(rs.next()) {
+			re.put(rs.getInt(1), rs.getInt(2));
+			
+			
+		}
 
-
-		return total;
+		return re;
 		
 	}
 }
